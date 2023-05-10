@@ -1,13 +1,20 @@
 package com.codingwithze.latihannewsorg.network
 
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
+@Module
+@InstallIn(SingletonComponent::class)
 object NetworkClient {
 
-    const val BASE_URL = "https://newsapi.org/v2/"
+    private const val BASE_URL = "https://newsapi.org/v2/"
 
     private  val logging : HttpLoggingInterceptor
         get(){
@@ -17,15 +24,29 @@ object NetworkClient {
             }
         }
 
-    private val clint = OkHttpClient.Builder().addInterceptor(logging).build()
+    private val client = OkHttpClient.Builder().addInterceptor(logging).build()
 
-    val instance : ApiService by lazy {
-        val retrofit = Retrofit.Builder()
+    @Singleton
+    @Provides
+    fun provideRetrofit() : Retrofit=
+        Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
-            .client(clint)
+            .client(client)
             .build()
+
+    @Singleton
+    @Provides
+    fun provideNewsApi(retrofit: Retrofit): ApiService =
         retrofit.create(ApiService::class.java)
-    }
+
+//    val instance : ApiService by lazy {
+//        val retrofit = Retrofit.Builder()
+//            .baseUrl(BASE_URL)
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .client(clint)
+//            .build()
+//        retrofit.create(ApiService::class.java)
+//    }
 
 }

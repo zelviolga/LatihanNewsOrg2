@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -33,11 +35,26 @@ android {
     buildFeatures{
         viewBinding true
     }
+
+//    lint {
+//
+//        // Penyaringan kustom
+//        lintConfig file("lint.xml")
+//        //masukin error ke file lint-baseline.xml
+////        baseline = file("lint-baseline.xml")
+//    }
+
+    lint{
+        lintConfig file("lint.xml")
+    }
+
+
+
 }
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.core:core-ktx:1.10.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -54,10 +71,17 @@ dependencies {
 
 
     //load image
-    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
 
     // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.5'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5'
+
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    implementation 'org.mockito:mockito-core:3.12.4'
+    testImplementation 'org.mockito:mockito-core:3.12.4'
+    testImplementation "io.mockk:mockk:1.13.1"
 
 }

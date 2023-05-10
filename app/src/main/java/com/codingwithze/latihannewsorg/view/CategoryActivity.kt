@@ -8,11 +8,13 @@ import com.codingwithze.latihannewsorg.R
 import com.codingwithze.latihannewsorg.databinding.ActivityCategoryBinding
 import com.codingwithze.latihannewsorg.model.CategoryData
 import com.codingwithze.latihannewsorg.view.adapter.CategoryAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CategoryActivity : AppCompatActivity() {
 
-    lateinit var binding : ActivityCategoryBinding
-    lateinit var categoryAdapter  : CategoryAdapter
+    private lateinit var binding : ActivityCategoryBinding
+    private lateinit var categoryAdapter  : CategoryAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCategoryBinding.inflate(layoutInflater)
@@ -33,7 +35,7 @@ class CategoryActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@CategoryActivity, LinearLayoutManager.VERTICAL, false)
             adapter = categoryAdapter
             categoryAdapter.onClick={
-                var categ = it.name
+                val categ = it.name
                 val inten = Intent(context, SourceActivity::class.java)
                 inten.putExtra("name",categ)
                 startActivity(inten)

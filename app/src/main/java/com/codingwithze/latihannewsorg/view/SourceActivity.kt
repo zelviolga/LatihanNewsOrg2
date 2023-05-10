@@ -1,3 +1,5 @@
+@file:Suppress("ReplaceGetOrSet")
+
 package com.codingwithze.latihannewsorg.view
 
 import androidx.appcompat.app.AppCompatActivity
@@ -5,11 +7,12 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.codingwithze.latihannewsorg.R
 import com.codingwithze.latihannewsorg.databinding.ActivitySourceBinding
 import com.codingwithze.latihannewsorg.view.adapter.SourceAdapter
 import com.codingwithze.latihannewsorg.viewmodel.SourceViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SourceActivity : AppCompatActivity() {
     lateinit var binding : ActivitySourceBinding
     lateinit var sourceAdapter : SourceAdapter
@@ -22,7 +25,7 @@ class SourceActivity : AppCompatActivity() {
 
         sourceVm = ViewModelProvider(this).get(SourceViewModel::class.java)
         sourceAdapter = SourceAdapter(ArrayList())
-        sourceVm.getDataSource().observe(this, Observer {
+        sourceVm.getDataSource().observe(this, {
             sourceAdapter = SourceAdapter(it!!)
             val layoutMan = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
             binding.rvSource.layoutManager = layoutMan

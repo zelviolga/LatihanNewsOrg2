@@ -7,14 +7,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <RelativeLayout
-        android:id="@+id/itemSource"
         android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
             android:id="@+id/nameSource"
-            android:text="BBC-News"
-            android:textSize="25dp"
+            android:text="@string/bbc_news"
+            android:textSize="25sp"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:layout_width="wrap_content"

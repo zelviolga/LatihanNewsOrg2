@@ -6,16 +6,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.codingwithze.latihannewsorg.databinding.ItemSourceBinding
 import com.codingwithze.latihannewsorg.model.Source
 
-class SourceAdapter(var listSource : List<Source>):RecyclerView.Adapter<SourceAdapter.ViewHolder>() {
+class SourceAdapter(private var listSource : List<Source>):RecyclerView.Adapter<SourceAdapter.ViewHolder>() {
 
     class ViewHolder(var binding : ItemSourceBinding):RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SourceAdapter.ViewHolder {
-        var view = ItemSourceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = ItemSourceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: SourceAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.nameSource.text = listSource[position].name
     }
 

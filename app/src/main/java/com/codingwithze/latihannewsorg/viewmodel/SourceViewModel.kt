@@ -3,25 +3,25 @@ package com.codingwithze.latihannewsorg.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.codingwithze.latihannewsorg.model.Source
-import com.codingwithze.latihannewsorg.network.NetworkClient
+import com.codingwithze.latihannewsorg.network.ApiService
+import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class SourceViewModel : ViewModel() {
 
-    lateinit var liveDataSource : MutableLiveData<List<Source>?>
+@HiltViewModel
+class SourceViewModel @Inject constructor(var api : ApiService) : ViewModel() {
 
-    init {
-        liveDataSource = MutableLiveData()
-    }
+    var liveDataSource : MutableLiveData<List<Source>?> = MutableLiveData()
 
     fun getDataSource(): MutableLiveData<List<Source>?> {
         return  liveDataSource
     }
 
     fun callApiSource(category : String){
-        NetworkClient.instance.getAllSources(category)
+        api.getAllSources(category)
             .enqueue(object : Callback<List<Source>>{
                 override fun onResponse(
                     call: Call<List<Source>>,
